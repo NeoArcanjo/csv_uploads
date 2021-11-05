@@ -111,7 +111,7 @@ defmodule CsvUploadsWeb.AddressControllerTest do
       assert response(conn, 204)
 
       assert_error_sent 404, fn ->
-        get(conn, Routes.user_address_path(conn, :show, user.id,address))
+        get(conn, Routes.user_address_path(conn, :show, user.id, address))
       end
     end
   end

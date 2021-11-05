@@ -51,11 +51,10 @@ defmodule CsvUploads.Locations do
 
   """
   def create_address(%User{} = user, attrs \\ %{}) do
-user
-   |> Ecto.build_assoc(:addresses)
+    user
+    |> Ecto.build_assoc(:addresses)
     |> Address.changeset(attrs)
     |> Repo.insert()
-
   end
 
   @doc """

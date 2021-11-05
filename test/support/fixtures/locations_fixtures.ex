@@ -15,7 +15,7 @@ defmodule CsvUploads.LocationsFixtures do
         number: "some number",
         street: "some street"
       })
-      |> then(& CsvUploads.Locations.create_address(user, &1))
+      |> then(&CsvUploads.Locations.create_address(user, &1))
 
     address
   end

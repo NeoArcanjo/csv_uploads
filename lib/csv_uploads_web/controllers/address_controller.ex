@@ -15,6 +15,7 @@ defmodule CsvUploadsWeb.AddressController do
   @spec create(any, map) :: any
   def create(conn, %{"user_id" => user_id, "address" => address_params}) do
     user = Accounts.get_user!(user_id)
+
     with {:ok, %Address{} = address} <- Locations.create_address(user, address_params) do
       conn
       |> put_status(:created)
