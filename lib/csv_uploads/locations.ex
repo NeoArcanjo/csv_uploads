@@ -6,6 +6,7 @@ defmodule CsvUploads.Locations do
   import Ecto.Query, warn: false
   alias CsvUploads.Repo
 
+  alias CsvUploads.Accounts.User
   alias CsvUploads.Locations.Address
 
   @doc """
@@ -42,17 +43,19 @@ defmodule CsvUploads.Locations do
 
   ## Examples
 
-      iex> create_address(%{field: value})
+      iex> create_address(user, %{field: value})
       {:ok, %Address{}}
 
-      iex> create_address(%{field: bad_value})
+      iex> create_address(user, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_address(attrs \\ %{}) do
-    %Address{}
+  def create_address(%User{} = user, attrs \\ %{}) do
+user
+   |> Ecto.build_assoc(:addresses)
     |> Address.changeset(attrs)
     |> Repo.insert()
+
   end
 
   @doc """

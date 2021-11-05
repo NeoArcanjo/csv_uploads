@@ -3,19 +3,20 @@ defmodule CsvUploadsWeb.AddressController do
 
   alias CsvUploads.Locations
   alias CsvUploads.Locations.Address
-
+  alias CsvUploads.Accounts
   action_fallback CsvUploadsWeb.FallbackController
 
-  def index(conn, _params) do
-    addresses = Locations.list_addresses()
-    render(conn, "index.json", addresses: addresses)
+  def index(conn, %{"user_id" => user_id}) do
+    user = Accounts.get_user!(user_id)
+    render(conn, "index.json", addresses: user.addresses)
   end
 
-  def create(conn, %{"address" => address_params}) do
-    with {:ok, %Address{} = address} <- Locations.create_address(address_params) do
+  def create(conn, %{"user_id" => user_id, "address" => address_params}) do
+    user = Accounts.get_user!(user_id)
+    with {:ok, %Address{} = address} <- Locations.create_address(user, address_params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", Routes.address_path(conn, :show, address))
+      |> put_resp_header("location", Routes.user_address_path(conn, :show, address))
       |> render("show.json", address: address)
     end
   end
