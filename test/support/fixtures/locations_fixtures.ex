@@ -7,7 +7,7 @@ defmodule CsvUploads.LocationsFixtures do
   @doc """
   Generate a address.
   """
-  def address_fixture(attrs \\ %{}) do
+  def address_fixture(user, attrs \\ %{}) do
     {:ok, address} =
       attrs
       |> Enum.into(%{
@@ -15,7 +15,7 @@ defmodule CsvUploads.LocationsFixtures do
         number: "some number",
         street: "some street"
       })
-      |> CsvUploads.Locations.create_address()
+      |> then(& CsvUploads.Locations.create_address(user, &1))
 
     address
   end

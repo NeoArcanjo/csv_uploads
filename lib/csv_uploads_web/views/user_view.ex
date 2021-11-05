@@ -7,7 +7,7 @@ defmodule CsvUploadsWeb.UserView do
   end
 
   def render("show.json", %{user: user}) do
-    %{data: render_one(user, UserView, "user.json")}
+    %{data: render_one(user, UserView, "user_with_addresses.json")}
   end
 
   def render("user_with_addresses.json", %{user: user}) do
