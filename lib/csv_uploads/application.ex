@@ -16,7 +16,11 @@ defmodule CsvUploads.Application do
       {Phoenix.PubSub, name: CsvUploads.PubSub},
       # Start the Endpoint (http/https)
       CsvUploadsWeb.Endpoint,
-      CsvUploads.Watcher
+      {CsvUploads.Watcher,
+       [
+         name: CsvUploads.Watcher,
+         dirs: [Path.join([:code.priv_dir(:csv_uploads), "static", "uploads"])]
+       ]}
       # Start a worker by calling: CsvUploads.Worker.start_link(arg)
       # {CsvUploads.Worker, arg}
     ]

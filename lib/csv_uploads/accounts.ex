@@ -37,6 +37,10 @@ defmodule CsvUploads.Accounts do
   """
   def get_user!(id), do: Repo.get!(User, id) |> Repo.preload(:addresses)
 
+  @spec get_user_by!({any, any}) :: nil | [%{optional(atom) => any}] | %{optional(atom) => any}
+  def get_user_by!({key, value}),
+    do: Repo.get_by!(User, %{key => value}) |> Repo.preload(:addresses)
+
   @doc """
   Creates a user.
 

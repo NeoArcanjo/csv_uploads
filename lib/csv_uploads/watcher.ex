@@ -3,12 +3,15 @@ defmodule CsvUploads.Watcher do
 
   alias CsvUploads.Accounts
 
-  def start_link(_init_args) do
+  @spec start_link(any) :: :ignore | {:error, any} | {:ok, pid}
+  def start_link(init_args) do
+    name = init_args[:name]
+    dirs = init_args[:dirs] || [Path.join([:code.priv_dir(:csv_uploads), "static", "uploads"])]
     # you may want to register your server with `name: __MODULE__`
     # as a third argument to `start_link`
     GenServer.start_link(__MODULE__,
-      name: __MODULE__,
-      dirs: [Path.join([:code.priv_dir(:csv_uploads), "static", "uploads"])]
+      name: name,
+      dirs: dirs
     )
   end
 
@@ -52,5 +55,11 @@ defmodule CsvUploads.Watcher do
   def handle_info({:file_event, watcher_pid, :stop}, %{watcher_pid: watcher_pid} = state) do
     GenServer.stop(watcher_pid, :normal)
     {:noreply, state}
+  end
+
+  alias CsvUploads.Accounts
+  @spec get_user_by_email(any) :: nil | [%{optional(atom) => any}] | %{optional(atom) => any}
+  def get_user_by_email(email) do
+    Accounts.get_user_by!({:email, email})
   end
 end
