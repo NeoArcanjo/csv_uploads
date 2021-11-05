@@ -1,7 +1,7 @@
 # CsvUploads
 
 To start your Phoenix server:
-
+  * Important: In Linux Systems your have must installed inotify-tools to execute this project
   * Install dependencies with `mix deps.get`
   * Create and migrate your database with `mix ecto.setup`
   * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
