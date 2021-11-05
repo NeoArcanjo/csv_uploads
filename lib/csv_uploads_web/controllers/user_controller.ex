@@ -7,7 +7,7 @@ defmodule CsvUploadsWeb.UserController do
   action_fallback CsvUploadsWeb.FallbackController
 
   def index(conn, _params) do
-    users = Accounts.list_users()
+    users = Accounts.list_users() |> IO.inspect()
     render(conn, "index.json", users: users)
   end
 

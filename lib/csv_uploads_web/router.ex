@@ -8,9 +8,11 @@ defmodule CsvUploadsWeb.Router do
   scope "/api", CsvUploadsWeb do
     pipe_through :api
 
-    resources "/users", UserController, except: [:new, :edit]
-    resources "/addresses", AddressController, except: [:new, :edit]
-    post "/uploads", UploadController, :upload
+    resources "/users", UserController, except: [:new, :edit] do
+      resources "/addresses", AddressController, except: [:new, :edit]
+    end
+
+    post "/uploads", UploadController, :index
   end
 
   # Enables LiveDashboard only for development

@@ -35,7 +35,12 @@ defmodule CsvUploads.LocationsTest do
 
     test "update_address/2 with valid data updates the address" do
       address = address_fixture()
-      update_attrs = %{cep: "some updated cep", number: "some updated number", street: "some updated street"}
+
+      update_attrs = %{
+        cep: "some updated cep",
+        number: "some updated number",
+        street: "some updated street"
+      }
 
       assert {:ok, %Address{} = address} = Locations.update_address(address, update_attrs)
       assert address.cep == "some updated cep"

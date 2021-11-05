@@ -18,7 +18,7 @@ defmodule CsvUploads.Accounts do
 
   """
   def list_users do
-    Repo.all(User)
+    Repo.all(User) |> Repo.preload(:addresses)
   end
 
   @doc """
@@ -35,7 +35,7 @@ defmodule CsvUploads.Accounts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user!(id), do: Repo.get!(User, id) |> Repo.preload(:addresses)
 
   @doc """
   Creates a user.
@@ -53,6 +53,10 @@ defmodule CsvUploads.Accounts do
     %User{}
     |> User.changeset(attrs)
     |> Repo.insert()
+    |> case do
+      {:ok, %User{} = user} -> {:ok, Repo.preload(user, :addresses)}
+      error -> error
+    end
   end
 
   @doc """

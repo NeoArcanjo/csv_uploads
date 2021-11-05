@@ -15,7 +15,8 @@ defmodule CsvUploads.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: CsvUploads.PubSub},
       # Start the Endpoint (http/https)
-      CsvUploadsWeb.Endpoint
+      CsvUploadsWeb.Endpoint,
+      CsvUploads.Watcher
       # Start a worker by calling: CsvUploads.Worker.start_link(arg)
       # {CsvUploads.Worker, arg}
     ]
